@@ -113,8 +113,7 @@ def get_identity(alignment_list):
     return count/len(alignment_list[0])*100
         
 
-def abundance_greedy_clustering(amplicon_file, minseqlen, mincount, chunk_size,
-kmer_size):
+def abundance_greedy_clustering(amplicon_file, minseqlen, mincount):
     OTU_list = []
     for k, v in dereplication_fulllength(amplicon_file, minseqlen, mincount):
         if not OTU_list:
@@ -150,7 +149,12 @@ def main():
     """
     # Get arguments
     args = get_arguments()
-    # Votre programme ici
+
+    # Generate list of Operational Taxonomic Unit (OTU)
+    otu_list = abundance_greedy_clustering(args.amplicon_file, args.minseqlen, args.mincount)
+    
+    # Write OTU list in file
+    write_OTU(otu_list, args.output_file)
 
 # ==============================================================
 # Chimera removal section
@@ -193,4 +197,4 @@ def chimera_removal(amplicon_file, minseqlen, mincount, chunk_size, kmer_size):
 
 
 if __name__ == '__main__':
-    pass
+    main()
