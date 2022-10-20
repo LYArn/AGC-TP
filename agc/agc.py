@@ -130,10 +130,12 @@ kmer_size):
             
     return OTU_list
 
-        
 
 def write_OTU(OTU_list, output_file):
-    pass
+    with open(output_file, 'w') as f:
+        for i in range(len(OTU_list)):
+            f.write(f"OTU_{i+1} occurrence={OTU_list[i][1]}\n")
+            f.write(textwrap.fill(OTU_list[i][0], width=80))
 
 # ==============================================================
 # Main program
